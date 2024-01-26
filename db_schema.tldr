@@ -1,0 +1,247 @@
+{
+  "tldrawFileFormatVersion": 1,
+  "schema": {
+    "schemaVersion": 1,
+    "storeVersion": 4,
+    "recordVersions": {
+      "asset": {
+        "version": 1,
+        "subTypeKey": "type",
+        "subTypeVersions": {
+          "image": 3,
+          "video": 3,
+          "bookmark": 1
+        }
+      },
+      "camera": {
+        "version": 1
+      },
+      "document": {
+        "version": 2
+      },
+      "instance": {
+        "version": 23
+      },
+      "instance_page_state": {
+        "version": 5
+      },
+      "page": {
+        "version": 1
+      },
+      "shape": {
+        "version": 3,
+        "subTypeKey": "type",
+        "subTypeVersions": {
+          "group": 0,
+          "text": 1,
+          "bookmark": 2,
+          "draw": 1,
+          "geo": 8,
+          "note": 5,
+          "line": 1,
+          "frame": 0,
+          "arrow": 2,
+          "highlight": 0,
+          "embed": 4,
+          "image": 3,
+          "video": 2
+        }
+      },
+      "instance_presence": {
+        "version": 5
+      },
+      "pointer": {
+        "version": 1
+      }
+    }
+  },
+  "records": [
+    {
+      "gridSize": 10,
+      "name": "",
+      "meta": {},
+      "id": "document:document",
+      "typeName": "document"
+    },
+    {
+      "id": "pointer:pointer",
+      "typeName": "pointer",
+      "x": 249.80899035706915,
+      "y": 412.3839881258609,
+      "lastActivityTimestamp": 1706275198299,
+      "meta": {}
+    },
+    {
+      "meta": {},
+      "id": "page:page",
+      "name": "Page 1",
+      "index": "a1",
+      "typeName": "page"
+    },
+    {
+      "x": 193.09606011490558,
+      "y": 139.83470717990824,
+      "z": 0.8203413183053588,
+      "meta": {},
+      "id": "camera:page:page",
+      "typeName": "camera"
+    },
+    {
+      "editingShapeId": "shape:LOc3kIsOWfGBZn-Ool8Kp",
+      "croppingShapeId": null,
+      "selectedShapeIds": [
+        "shape:LOc3kIsOWfGBZn-Ool8Kp"
+      ],
+      "hoveredShapeId": "shape:LOc3kIsOWfGBZn-Ool8Kp",
+      "erasingShapeIds": [],
+      "hintingShapeIds": [],
+      "focusedGroupId": null,
+      "meta": {},
+      "id": "instance_page_state:page:page",
+      "pageId": "page:page",
+      "typeName": "instance_page_state"
+    },
+    {
+      "followingUserId": null,
+      "opacityForNextShape": 1,
+      "stylesForNextShape": {},
+      "brush": {
+        "x": -1244,
+        "y": 1096.5,
+        "w": 19.1666259765625,
+        "h": 27.5
+      },
+      "scribbles": [],
+      "cursor": {
+        "type": "default",
+        "rotation": 0
+      },
+      "isFocusMode": false,
+      "exportBackground": true,
+      "isDebugMode": false,
+      "isToolLocked": false,
+      "screenBounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1245,
+        "h": 746.6666259765625
+      },
+      "insets": [
+        false,
+        false,
+        true,
+        false
+      ],
+      "zoomBrush": null,
+      "isGridMode": false,
+      "isPenMode": false,
+      "chatMessage": "",
+      "isChatting": false,
+      "highlightedUserIds": [],
+      "canMoveCamera": true,
+      "isFocused": true,
+      "devicePixelRatio": 1.2000000476837158,
+      "isCoarsePointer": false,
+      "isHoveringCanvas": true,
+      "openMenus": [],
+      "isChangingStyle": false,
+      "isReadonly": false,
+      "meta": {},
+      "id": "instance:instance",
+      "currentPageId": "page:page",
+      "typeName": "instance"
+    },
+    {
+      "x": 13.736984252929688,
+      "y": 333.69786834716797,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "type": "text",
+      "props": {
+        "color": "black",
+        "size": "m",
+        "w": 485.859375,
+        "text": "Sub Task model\nid (int, unique identifier)\ntask_id (int)//references task table\nstatus (0,1) //0- incomplete, 1- complete\ncreated_at (date/string)\nupdated_at (date/string)\ndeleted_at (date/string)",
+        "font": "draw",
+        "align": "start",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "a1",
+      "id": "shape:LOc3kIsOWfGBZn-Ool8Kp",
+      "typeName": "shape"
+    },
+    {
+      "x": 13.0859375,
+      "y": 55.26042175292969,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "type": "text",
+      "props": {
+        "color": "black",
+        "size": "m",
+        "w": 324.828125,
+        "text": "User model\nid (int, unique identifier)\nphone_number (num)\npriority (0,1,2)\n//for twilio calling priority",
+        "font": "draw",
+        "align": "start",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "a2",
+      "id": "shape:O-atp1BaCwhkMWl4orHaz",
+      "typeName": "shape"
+    },
+    {
+      "x": 685.4036560058594,
+      "y": 16.197906494140625,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "type": "text",
+      "props": {
+        "color": "black",
+        "size": "m",
+        "w": 480.0625,
+        "text": "Task model\nid (int, unique identifier)\nuser_id (int) // reference to user table\ntitle (string)\ndescription (string) (date/string)\nstatus ['TODO', 'IN_PROGRESS', 'DONE']\ndue_date (date/string)\nupdated_at (date/string)\ndeleted_at (date/string)",
+        "font": "draw",
+        "align": "start",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "a3",
+      "id": "shape:AYY2Su8h1YPpJ5MPWkxsP",
+      "typeName": "shape"
+    },
+    {
+      "x": 683.6719360351562,
+      "y": 355.1562194824219,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "type": "text",
+      "props": {
+        "color": "black",
+        "size": "m",
+        "w": 808.5390625,
+        "text": "RUles\n“TODO” - when no sub task is finished\n“IN_PROGRESS” - when at least 1 sub task is finished\n“DONE” - when every sub task is completed\n0 - Due date is today //0\n1 - Due date is between tomorrow and day after tomorrow // 1-2\n2 - 3-4\n3 - 5+",
+        "font": "draw",
+        "align": "start",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:page",
+      "index": "a4",
+      "id": "shape:tiESOLzznRmVaSeZ4YEU7",
+      "typeName": "shape"
+    }
+  ]
+}
