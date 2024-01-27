@@ -5,6 +5,7 @@ import {
   deleteTaskSchema,
   updateSubTaskSchema,
   deleteSubTaskSchema,
+  updateTaskSchema,
 } from "./task";
 export {
   createUserSchema,
@@ -14,4 +15,5 @@ export {
   deleteTaskSchema,
   updateSubTaskSchema,
   deleteSubTaskSchema,
+  updateTaskSchema,
 };

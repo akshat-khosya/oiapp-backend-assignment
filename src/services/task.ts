@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { SubTaskModel, TaskModel } from "../models";
+import { calculatePriority } from "../utils";
 
 const createTask = async (data: {
   userId: mongoose.Types.ObjectId;
@@ -144,6 +145,106 @@ const updateTaskStatus = async (taskId: mongoose.Types.ObjectId) => {
   }
 };
 
+const updateTaskDueDate = async (
+  taskId: mongoose.Types.ObjectId,
+  dueDate: Date
+) => {
+  try {
+    return await TaskModel.findOneAndUpdate(
+      { _id: taskId },
+      {
+        $set: {
+          dueDate: dueDate,
+          priority: calculatePriority(dueDate.toString()),
+        },
+      }
+    );
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
+
+const getUserTask = async (
+  match: {
+    userId: mongoose.Types.ObjectId;
+    priority?: number;
+    dueDate?: {
+      $lte: Date;
+    };
+  },
+  page: number,
+  pageSize: number
+) => {
+  try {
+    const result = await TaskModel.aggregate([
+      { $match: match },
+      {
+        $group: {
+          _id: null,
+          totalCount: { $sum: 1 },
+          tasks: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          totalCount: 1,
+          tasks: { $slice: ["$tasks", (page - 1) * pageSize, pageSize] },
+        },
+      },
+    ]);
+
+    if (result.length === 0) {
+      return { tasks: [], totalCount: 0 };
+    }
+
+    const { tasks, totalCount } = result[0];
+
+    return { tasks, totalCount };
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
+
+const getAllTaskByUserId = async (userId: mongoose.Types.ObjectId) => {
+  try {
+    return await TaskModel.find({ userId, deletedAt: { $exists: false } });
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
+
+const getAllSubTask = async (match: any, page: number, pageSize: number) => {
+  try {
+    const results = await SubTaskModel.aggregate([
+      { $match: match },
+      {
+        $group: {
+          _id: null,
+          totalCount: { $sum: 1 },
+          subtasks: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          totalCount: 1,
+          subtasks: { $slice: ["$subtasks", (page - 1) * pageSize, pageSize] },
+        },
+      },
+    ]);
+
+    if (results.length === 0) {
+      return { subtasks: [], totalCount: 0 };
+    }
+
+    const { subtasks, totalCount } = results[0];
+
+    return { subtasks, totalCount };
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
 export {
   createTask,
   getTaskById,
@@ -153,4 +254,8 @@ export {
   getSubTaskById,
   updateSubTaskById,
   updateTaskStatus,
+  updateTaskDueDate,
+  getUserTask,
+  getAllTaskByUserId,
+  getAllSubTask,
 };

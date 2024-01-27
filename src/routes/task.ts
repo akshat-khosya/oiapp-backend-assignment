@@ -6,6 +6,7 @@ import {
   deleteSubTaskSchema,
   deleteTaskSchema,
   updateSubTaskSchema,
+  updateTaskSchema,
 } from "../schema";
 import {
   deleteTaskHandler,
@@ -13,6 +14,9 @@ import {
   taskCreateHandler,
   updateSubTaskHandler,
   deleteSubTaskHandler,
+  updateTaskHandler,
+  getTaskHandler,
+  getSubTaskHandler,
 } from "../controllers";
 
 const taskRouter = express.Router();
@@ -46,5 +50,15 @@ taskRouter.delete(
   [validate(deleteSubTaskSchema), deserializeUser],
   deleteSubTaskHandler
 );
+
+taskRouter.put(
+  "/",
+  [validate(updateTaskSchema), deserializeUser],
+  updateTaskHandler
+);
+
+taskRouter.get("/", deserializeUser, getTaskHandler);
+
+taskRouter.get("/sub-task", deserializeUser, getSubTaskHandler);
 
 export default taskRouter;

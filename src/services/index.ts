@@ -8,6 +8,10 @@ import {
   updateSubTaskById,
   updateTaskStatus,
   deleteSubTaskById,
+  updateTaskDueDate,
+  getUserTask,
+  getAllTaskByUserId,
+  getAllSubTask,
 } from "./task";
 export {
   getUserByPhone,
@@ -20,4 +24,8 @@ export {
   updateSubTaskById,
   updateTaskStatus,
   deleteSubTaskById,
+  updateTaskDueDate,
+  getUserTask,
+  getAllTaskByUserId,
+  getAllSubTask,
 };

@@ -5,6 +5,9 @@ import {
   deleteTaskHandler,
   updateSubTaskHandler,
   deleteSubTaskHandler,
+  updateTaskHandler,
+  getTaskHandler,
+  getSubTaskHandler,
 } from "./task";
 export {
   createUserHandler,
@@ -14,4 +17,7 @@ export {
   deleteTaskHandler,
   updateSubTaskHandler,
   deleteSubTaskHandler,
+  updateTaskHandler,
+  getTaskHandler,
+  getSubTaskHandler,
 };
