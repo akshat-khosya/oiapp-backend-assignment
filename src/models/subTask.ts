@@ -20,6 +20,7 @@ const subTaskSchema: Schema<ISubTask> = new Schema(
       type: Number,
       enum: [0, 1],
       required: true,
+      default: 0,
     },
     createdAt: {
       type: Date,
