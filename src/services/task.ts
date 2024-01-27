@@ -55,10 +55,34 @@ const deleteTaskById = async (taskId: mongoose.Types.ObjectId) => {
     throw (error as Error).message;
   }
 };
+
+const getSubTaskById = async (subTaskId: mongoose.Types.ObjectId) => {
+  try {
+    return await SubTaskModel.findById({ _id: subTaskId });
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
+
+const updateSubTaskById = async (
+  subTaskId: mongoose.Types.ObjectId,
+  status: number
+) => {
+  try {
+    return await SubTaskModel.findOneAndUpdate(
+      { _id: subTaskId },
+      { $set: { status } }
+    );
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
 export {
   createTask,
   getTaskById,
   createSubTask,
   deleteSubTaskById,
   deleteTaskById,
+  getSubTaskById,
+  updateSubTaskById,
 };

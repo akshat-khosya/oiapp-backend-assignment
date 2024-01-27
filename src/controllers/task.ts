@@ -5,11 +5,13 @@ import {
   createTask,
   createUser,
   deleteTaskById,
+  getSubTaskById,
   getTaskById,
   getUserByPhone,
+  updateSubTaskById,
 } from "../services";
 import { config } from "../lib";
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { Mongoose, Types } from "mongoose";
 
 const taskCreateHandler = async (req: Request, res: Response) => {
   try {
@@ -43,7 +45,11 @@ const subTaskCreateHandler = async (req: Request, res: Response) => {
     // check task
     const task = await getTaskById(req.body.taskId);
 
-    if (!task || task.userId.toString() !== userId.toString()) {
+    if (
+      !task ||
+      task.userId.toString() !== userId.toString() ||
+      task.deletedAt
+    ) {
       return res.status(404).json({ error: "Task not found." });
     }
     // create sub
@@ -76,4 +82,33 @@ const deleteTaskHandler = async (req: Request, res: Response) => {
   }
 };
 
-export { taskCreateHandler, subTaskCreateHandler, deleteTaskHandler };
+const updateSubTaskHandler = async (req: Request, res: Response) => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const subTask = await getSubTaskById(req.body.subTaskId);
+    if (!subTask || subTask?.deletedAt) {
+      return res.status(404).json({ error: "Sub Task not found." });
+    }
+    const task = await getTaskById(subTask.taskId as Types.ObjectId);
+    if (!task || task.userId.toString() !== userId.toString()) {
+      return res.status(404).json({ error: "Sub task not found." });
+    }
+    await updateSubTaskById(req.body.subTaskId, req.body.status);
+    return res.status(200).json({ message: "Sub Task Updated successfully" });
+  } catch (error) {
+    log.error("Error in updating a sub task:" + (error as Error).message);
+    return res.status(500).json({ error: (error as Error).message });
+  }
+};
+
+export {
+  taskCreateHandler,
+  subTaskCreateHandler,
+  deleteTaskHandler,
+  updateSubTaskHandler,
+};

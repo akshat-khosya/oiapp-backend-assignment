@@ -3,6 +3,7 @@ import {
   taskCreateHandler,
   subTaskCreateHandler,
   deleteTaskHandler,
+  updateSubTaskHandler,
 } from "./task";
 export {
   createUserHandler,
@@ -10,4 +11,5 @@ export {
   taskCreateHandler,
   subTaskCreateHandler,
   deleteTaskHandler,
+  updateSubTaskHandler,
 };

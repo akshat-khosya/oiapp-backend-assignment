@@ -3,6 +3,7 @@ import {
   createTaskSchema,
   createSubTaskSchema,
   deleteTaskSchema,
+  updateSubTaskSchema,
 } from "./task";
 export {
   createUserSchema,
@@ -10,4 +11,5 @@ export {
   createTaskSchema,
   createSubTaskSchema,
   deleteTaskSchema,
+  updateSubTaskSchema,
 };

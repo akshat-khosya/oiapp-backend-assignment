@@ -1,4 +1,4 @@
-import { object, string, date } from "yup";
+import { object, string, date, number } from "yup";
 
 const createTaskSchema = object({
   body: object({
@@ -33,4 +33,23 @@ const deleteTaskSchema = object({
   }),
 });
 
-export { createTaskSchema, createSubTaskSchema, deleteTaskSchema };
+const updateSubTaskSchema = object({
+  body: object({
+    subTaskId: string()
+      .required("Task ID is required")
+      .matches(/^[a-f\d]{24}$/i, "Invalid TaskId "),
+    status: number()
+      .oneOf([0, 1], "Status must be 0 or 1")
+      .required("Status is required"),
+  }),
+
+  headers: object({
+    authorization: string().required("Authorization header is required"),
+  }),
+});
+export {
+  createTaskSchema,
+  createSubTaskSchema,
+  deleteTaskSchema,
+  updateSubTaskSchema,
+};

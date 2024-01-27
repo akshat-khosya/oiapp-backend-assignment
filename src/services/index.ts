@@ -1,5 +1,12 @@
 import { getUserByPhone, createUser } from "./user";
-import { createTask, getTaskById, createSubTask, deleteTaskById } from "./task";
+import {
+  createTask,
+  getTaskById,
+  createSubTask,
+  deleteTaskById,
+  getSubTaskById,
+  updateSubTaskById,
+} from "./task";
 export {
   getUserByPhone,
   createUser,
@@ -7,4 +14,6 @@ export {
   getTaskById,
   createSubTask,
   deleteTaskById,
+  getSubTaskById,
+  updateSubTaskById,
 };
