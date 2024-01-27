@@ -12,6 +12,8 @@ import {
   getUserTask,
   getAllTaskByUserId,
   getAllSubTask,
+  findPhoneNumber,
+  updatePriority,
 } from "./task";
 export {
   getUserByPhone,
@@ -28,4 +30,6 @@ export {
   getUserTask,
   getAllTaskByUserId,
   getAllSubTask,
+  findPhoneNumber,
+  updatePriority,
 };

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { SubTaskModel, TaskModel } from "../models";
-import { calculatePriority } from "../utils";
+import { SubTaskModel, TaskModel, UserModel } from "../models";
+import { calculatePriority, log } from "../utils";
 
 const createTask = async (data: {
   userId: mongoose.Types.ObjectId;
@@ -245,6 +245,46 @@ const getAllSubTask = async (match: any, page: number, pageSize: number) => {
     throw (error as Error).message;
   }
 };
+
+const updatePriority = async () => {
+  try {
+    const today = new Date();
+    const tasks = await TaskModel.find({ dueDate: { $lte: today } });
+
+    tasks.forEach(async (task) => {
+      task.priority = calculatePriority(task.dueDate.toString());
+      log.info(task.id);
+      await task.save();
+    });
+
+    log.info("Task priorities updated successfully.");
+  } catch (error) {}
+};
+
+const findPhoneNumber = async () => {
+  try {
+    const users = await UserModel.find().sort({ priority: 1 });
+
+    if (!users.length) return;
+    const phoneNumbers: string[] = [];
+    for (const user of users) {
+      const overdueTasks = await TaskModel.find({
+        userId: user._id,
+        status: { $in: ["TODO", "IN_PROGRESS"] },
+        deletedAt: { $exists: false },
+        dueDate: { $lte: new Date() },
+      });
+      console.log(overdueTasks);
+      if (overdueTasks.length > 0) {
+        log.info(`Calling ${user.phoneNumber}`);
+        phoneNumbers.push(user.phoneNumber);
+      }
+    }
+    return phoneNumbers;
+  } catch (error) {
+    log.error((error as Error).message);
+  }
+};
 export {
   createTask,
   getTaskById,
@@ -258,4 +298,6 @@ export {
   getUserTask,
   getAllTaskByUserId,
   getAllSubTask,
+  updatePriority,
+  findPhoneNumber,
 };

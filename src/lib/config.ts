@@ -1,4 +1,4 @@
-import env from 'dotenv';
+import env from "dotenv";
 
 class Config {
   _config: Record<string, any>;
@@ -6,10 +6,13 @@ class Config {
     env.config();
     this._config = {
       port: process.env.PORT || 4000,
-      dbUrl: process.env.DB_URL || '',
+      dbUrl: process.env.DB_URL || "",
       saltRounds: process.env.SALT_ROUNDS || 10,
-      privateKey: process.env.PRIVATE_KEY || 'someday123%',
-      accessTokenTtl: process.env.ACCESS_TOKEN_TTL || '30d',
+      privateKey: process.env.PRIVATE_KEY || "someday123%",
+      accessTokenTtl: process.env.ACCESS_TOKEN_TTL || "30d",
+      accountSid: process.env.ACCOUNT_SID || "",
+      authToken: process.env.AUTH_TOKEN || "",
+      virtualNumber: process.env.VIRTUAL_NUMBER || "",
     };
   }
 

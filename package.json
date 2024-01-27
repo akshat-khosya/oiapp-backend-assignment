@@ -26,11 +26,13 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "cron": "^3.1.6",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.1",
+    "twilio": "^4.21.0",
     "winston": "^3.11.0",
     "yup": "^1.3.3"
   }
