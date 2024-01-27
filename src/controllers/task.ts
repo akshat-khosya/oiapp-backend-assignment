@@ -9,6 +9,7 @@ import {
   getTaskById,
   getUserByPhone,
   updateSubTaskById,
+  updateTaskStatus,
 } from "../services";
 import { config } from "../lib";
 import mongoose, { Mongoose, Types } from "mongoose";
@@ -54,6 +55,7 @@ const subTaskCreateHandler = async (req: Request, res: Response) => {
     }
     // create sub
     await createSubTask(task._id);
+    updateTaskStatus(task._id);
     // return 201
     return res.status(201).json({ message: "Sub Task created successfully" });
   } catch (error) {
@@ -99,6 +101,7 @@ const updateSubTaskHandler = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Sub task not found." });
     }
     await updateSubTaskById(req.body.subTaskId, req.body.status);
+    updateTaskStatus(task._id);
     return res.status(200).json({ message: "Sub Task Updated successfully" });
   } catch (error) {
     log.error("Error in updating a sub task:" + (error as Error).message);

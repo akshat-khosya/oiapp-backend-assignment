@@ -77,6 +77,73 @@ const updateSubTaskById = async (
     throw (error as Error).message;
   }
 };
+
+const updateTaskStatus = async (taskId: mongoose.Types.ObjectId) => {
+  try {
+    const result = await SubTaskModel.aggregate([
+      {
+        $match: {
+          taskId: taskId,
+          deletedAt: { $exists: false },
+        },
+      },
+      {
+        $facet: {
+          incompleteCount: [
+            {
+              $match: { status: 0 },
+            },
+            {
+              $count: "count",
+            },
+          ],
+          completeCount: [
+            {
+              $match: { status: 1 },
+            },
+            {
+              $count: "count",
+            },
+          ],
+        },
+      },
+      {
+        $project: {
+          incompleteCount: {
+            $ifNull: [{ $arrayElemAt: ["$incompleteCount.count", 0] }, 0],
+          },
+          completeCount: {
+            $ifNull: [{ $arrayElemAt: ["$completeCount.count", 0] }, 0],
+          },
+        },
+      },
+    ]);
+
+    const counts = {
+      incompleteCount: result[0].incompleteCount,
+      completeCount: result[0].completeCount,
+    };
+    if (counts.incompleteCount == 0) {
+      await TaskModel.findOneAndUpdate(
+        { _id: taskId },
+        { $set: { status: "DONE" } }
+      );
+    } else if (counts.completeCount >= 1 && counts.incompleteCount !== 0) {
+      await TaskModel.findOneAndUpdate(
+        { _id: taskId },
+        { $set: { status: "IN_PROGRESS" } }
+      );
+    } else if (counts.incompleteCount !== 0 && counts.completeCount === 0) {
+      await TaskModel.findOneAndUpdate(
+        { _id: taskId },
+        { $set: { status: "TODO" } }
+      );
+    }
+  } catch (error) {
+    throw (error as Error).message;
+  }
+};
+
 export {
   createTask,
   getTaskById,
@@ -85,4 +152,5 @@ export {
   deleteTaskById,
   getSubTaskById,
   updateSubTaskById,
+  updateTaskStatus,
 };
