@@ -47,9 +47,23 @@ const updateSubTaskSchema = object({
     authorization: string().required("Authorization header is required"),
   }),
 });
+
+const deleteSubTaskSchema = object({
+  body: object({
+    subTaskId: string()
+      .required("Task ID is required")
+      .matches(/^[a-f\d]{24}$/i, "Invalid TaskId "),
+  }),
+
+  headers: object({
+    authorization: string().required("Authorization header is required"),
+  }),
+});
+
 export {
   createTaskSchema,
   createSubTaskSchema,
   deleteTaskSchema,
   updateSubTaskSchema,
+  deleteSubTaskSchema,
 };
